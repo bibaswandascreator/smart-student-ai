@@ -15,6 +15,8 @@ function addMessage(text, sender) {
   chat.scrollTop = chat.scrollHeight;
 }
 
+/* ---------------- ESSAY ---------------- */
+
 function generateEssay(topic) {
   return `Essay on ${topic}:
 
@@ -24,6 +26,8 @@ There are different causes and effects related to ${topic}. Understanding it hel
 
 In conclusion, ${topic} is a meaningful topic that deserves attention and awareness.`;
 }
+
+/* ---------------- KNOWLEDGE ---------------- */
 
 function getKnowledge(question) {
   const knowledge = {
@@ -41,43 +45,63 @@ function getKnowledge(question) {
   return null;
 }
 
-/* STORY SUM SOLVER */
+/* ---------------- STORY SUM SOLVER ---------------- */
+
 function solveStoryProblem(text) {
   const numbers = text.match(/\d+/g);
-  if (!numbers) return null;
+  if (!numbers || numbers.length < 2) return null;
 
   const lower = text.toLowerCase();
+  const nums = numbers.map(Number);
 
-  // Speed × Time
-  if (lower.includes("km") && lower.includes("hour")) {
-    if (numbers.length >= 2) {
-      const speed = parseInt(numbers[0]);
-      const time = parseInt(numbers[1]);
-      const distance = speed * time;
-      return `Distance = Speed × Time = ${speed} × ${time} = ${distance} km`;
-    }
+  // SPEED × TIME
+  if (
+    lower.includes("km") ||
+    lower.includes("kilometer") ||
+    lower.includes("hour") ||
+    lower.includes("distance")
+  ) {
+    const distance = nums[0] * nums[1];
+    return `Distance = ${nums[0]} × ${nums[1]} = ${distance}`;
   }
 
-  // Price × Quantity
-  if (lower.includes("each") || lower.includes("per")) {
-    if (numbers.length >= 2) {
-      const price = parseInt(numbers[0]);
-      const quantity = parseInt(numbers[1]);
-      const total = price * quantity;
-      return `Total = ${price} × ${quantity} = ${total}`;
-    }
+  // COST PROBLEM
+  if (
+    lower.includes("cost") ||
+    lower.includes("each") ||
+    lower.includes("per") ||
+    lower.includes("rupee")
+  ) {
+    const total = nums[0] * nums[1];
+    return `Total cost = ${nums[0]} × ${nums[1]} = ${total}`;
   }
 
-  // Simple add word problems
-  if (lower.includes("total") || lower.includes("together")) {
-    if (numbers.length >= 2) {
-      const sum = numbers.map(Number).reduce((a, b) => a + b);
-      return `Total = ${sum}`;
-    }
+  // ADDITION STORY
+  if (
+    lower.includes("total") ||
+    lower.includes("together") ||
+    lower.includes("altogether") ||
+    lower.includes("more")
+  ) {
+    const sum = nums.reduce((a, b) => a + b);
+    return `Total = ${sum}`;
+  }
+
+  // SUBTRACTION STORY
+  if (
+    lower.includes("left") ||
+    lower.includes("remaining") ||
+    lower.includes("gave") ||
+    lower.includes("lost")
+  ) {
+    const result = nums[0] - nums[1];
+    return `Remaining = ${nums[0]} - ${nums[1]} = ${result}`;
   }
 
   return null;
 }
+
+/* ---------------- CLEAN MATH INPUT ---------------- */
 
 function cleanMathInput(text) {
   return text
@@ -86,6 +110,8 @@ function cleanMathInput(text) {
     .replace("solve", "")
     .trim();
 }
+
+/* ---------------- MAIN FUNCTION ---------------- */
 
 function sendMessage() {
   const input = document.getElementById("userInput");
@@ -101,19 +127,23 @@ function sendMessage() {
 
   try {
 
+    // Essay
     if (lower.includes("essay on")) {
       const topic = lower.split("essay on")[1].trim();
       response = generateEssay(topic);
     }
 
+    // Knowledge
     else if (getKnowledge(lower)) {
       response = getKnowledge(lower);
     }
 
+    // Story sums
     else if (solveStoryProblem(lower)) {
       response = solveStoryProblem(lower);
     }
 
+    // Normal math
     else {
       const cleaned = cleanMathInput(lower);
       const result = math.evaluate(cleaned);
