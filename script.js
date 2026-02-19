@@ -1,8 +1,8 @@
-function addMessage(text) {
+function addMessage(text, sender) {
   const chat = document.getElementById("chat");
 
   const message = document.createElement("div");
-  message.classList.add("message");
+  message.classList.add("message", sender);
   message.textContent = text;
 
   chat.appendChild(message);
@@ -48,7 +48,6 @@ function solveStoryProblem(text) {
   const lower = text.toLowerCase();
   const nums = numbers.map(Number);
 
-  // SPEED × TIME
   if (
     lower.includes("km") ||
     lower.includes("kilometer") ||
@@ -59,7 +58,6 @@ function solveStoryProblem(text) {
     return `Distance = ${nums[0]} × ${nums[1]} = ${distance}`;
   }
 
-  // COST PROBLEM
   if (
     lower.includes("cost") ||
     lower.includes("each") ||
@@ -70,7 +68,6 @@ function solveStoryProblem(text) {
     return `Total cost = ${nums[0]} × ${nums[1]} = ${total}`;
   }
 
-  // ADDITION STORY
   if (
     lower.includes("total") ||
     lower.includes("together") ||
@@ -81,7 +78,6 @@ function solveStoryProblem(text) {
     return `Total = ${sum}`;
   }
 
-  // SUBTRACTION STORY
   if (
     lower.includes("left") ||
     lower.includes("remaining") ||
@@ -113,7 +109,7 @@ function sendMessage() {
 
   if (!text) return;
 
-  addMessage(text);
+  addMessage(text, "user");
   input.value = "";
 
   let response = "";
@@ -141,8 +137,8 @@ function sendMessage() {
     }
 
   } catch (error) {
-    response = "I can solve math expressions, story sums, essays, or basic theory questions.";
+    response = "I can solve math expressions, story sums, essays, or theory questions.";
   }
 
-  addMessage(response);
+  addMessage(response, "bot");
 }
