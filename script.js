@@ -41,6 +41,44 @@ function getKnowledge(question) {
   return null;
 }
 
+/* STORY SUM SOLVER */
+function solveStoryProblem(text) {
+  const numbers = text.match(/\d+/g);
+  if (!numbers) return null;
+
+  const lower = text.toLowerCase();
+
+  // Speed × Time
+  if (lower.includes("km") && lower.includes("hour")) {
+    if (numbers.length >= 2) {
+      const speed = parseInt(numbers[0]);
+      const time = parseInt(numbers[1]);
+      const distance = speed * time;
+      return `Distance = Speed × Time = ${speed} × ${time} = ${distance} km`;
+    }
+  }
+
+  // Price × Quantity
+  if (lower.includes("each") || lower.includes("per")) {
+    if (numbers.length >= 2) {
+      const price = parseInt(numbers[0]);
+      const quantity = parseInt(numbers[1]);
+      const total = price * quantity;
+      return `Total = ${price} × ${quantity} = ${total}`;
+    }
+  }
+
+  // Simple add word problems
+  if (lower.includes("total") || lower.includes("together")) {
+    if (numbers.length >= 2) {
+      const sum = numbers.map(Number).reduce((a, b) => a + b);
+      return `Total = ${sum}`;
+    }
+  }
+
+  return null;
+}
+
 function cleanMathInput(text) {
   return text
     .replace("what is", "")
@@ -63,18 +101,19 @@ function sendMessage() {
 
   try {
 
-    // Essay
     if (lower.includes("essay on")) {
       const topic = lower.split("essay on")[1].trim();
       response = generateEssay(topic);
     }
 
-    // Knowledge
     else if (getKnowledge(lower)) {
       response = getKnowledge(lower);
     }
 
-    // Simple math expression
+    else if (solveStoryProblem(lower)) {
+      response = solveStoryProblem(lower);
+    }
+
     else {
       const cleaned = cleanMathInput(lower);
       const result = math.evaluate(cleaned);
@@ -82,7 +121,7 @@ function sendMessage() {
     }
 
   } catch (error) {
-    response = "I can solve math expressions, write essays, or answer basic theory questions.";
+    response = "I can solve math expressions, story sums, essays, or basic theory questions.";
   }
 
   addMessage(response, "bot");
