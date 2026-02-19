@@ -1,17 +1,11 @@
-function addMessage(text, sender) {
+function addMessage(text) {
   const chat = document.getElementById("chat");
-
-  const wrapper = document.createElement("div");
-  wrapper.style.display = "flex";
-  wrapper.style.justifyContent = sender === "user" ? "flex-end" : "flex-start";
 
   const message = document.createElement("div");
   message.classList.add("message");
   message.textContent = text;
 
-  wrapper.appendChild(message);
-  chat.appendChild(wrapper);
-
+  chat.appendChild(message);
   chat.scrollTop = chat.scrollHeight;
 }
 
@@ -119,7 +113,7 @@ function sendMessage() {
 
   if (!text) return;
 
-  addMessage(text, "user");
+  addMessage(text);
   input.value = "";
 
   let response = "";
@@ -127,23 +121,19 @@ function sendMessage() {
 
   try {
 
-    // Essay
     if (lower.includes("essay on")) {
       const topic = lower.split("essay on")[1].trim();
       response = generateEssay(topic);
     }
 
-    // Knowledge
     else if (getKnowledge(lower)) {
       response = getKnowledge(lower);
     }
 
-    // Story sums
     else if (solveStoryProblem(lower)) {
       response = solveStoryProblem(lower);
     }
 
-    // Normal math
     else {
       const cleaned = cleanMathInput(lower);
       const result = math.evaluate(cleaned);
@@ -154,5 +144,5 @@ function sendMessage() {
     response = "I can solve math expressions, story sums, essays, or basic theory questions.";
   }
 
-  addMessage(response, "bot");
+  addMessage(response);
 }
