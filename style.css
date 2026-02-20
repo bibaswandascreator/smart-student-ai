@@ -1,4 +1,3 @@
-/* Reset */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -7,10 +6,15 @@ body {
 
 /* ===== HEADER ===== */
 header {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   padding: 15px;
   text-align: center;
+  background: linear-gradient(to right, #ff9800, #ffb74d);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 /* ===== NOTE ===== */
@@ -26,24 +30,37 @@ header {
   padding: 10px;
 }
 
-/* ===== INPUT AREA ===== */
+/* ===== INPUT ===== */
 .input-container {
   display: flex;
-  padding: 10px;
-  gap: 5px;
+  padding: 15px;
+  gap: 10px;
 }
 
 .input-container input {
   flex: 1;
-  padding: 8px;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  outline: none;
 }
 
 .input-container button {
-  padding: 8px 12px;
+  padding: 10px 18px;
+  border-radius: 25px;
+  border: none;
+  background: #ff9800;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-/* ===== MESSAGE BOXES ===== */
+.input-container button:hover {
+  background: #f57c00;
+}
+
+/* ===== MESSAGES ===== */
 .message {
   background: #e0e0e0;
   padding: 10px;
@@ -51,11 +68,7 @@ header {
   border-radius: 8px;
 }
 
-/* ========================= */
-/* ===== SIDE MENU ===== */
-/* ========================= */
-
-/* Hamburger button */
+/* ===== MENU ===== */
 .menu-btn {
   position: fixed;
   top: 15px;
@@ -65,7 +78,6 @@ header {
   z-index: 3000;
 }
 
-/* Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -77,11 +89,10 @@ header {
   z-index: 2000;
 }
 
-/* Side menu */
 .side-menu {
   position: fixed;
   top: 0;
-  left: -100%;   /* hide fully */
+  left: -100%;
   width: 50%;
   max-width: 300px;
   height: 100%;
@@ -93,7 +104,6 @@ header {
   box-sizing: border-box;
 }
 
-/* Active state */
 .side-menu.active {
   left: 0;
 }
@@ -102,42 +112,58 @@ header {
   display: block;
 }
 
-/* Menu header */
 .menu-header {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   background: linear-gradient(45deg, red, blue, purple);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Menu list */
-.side-menu ul {
-  list-style: none;
-  padding: 0;
+/* ===== HISTORY STYLE ===== */
+.history-container {
+  margin-top: 10px;
 }
 
-.side-menu ul li {
-  padding: 15px 10px;
-  border-bottom: 1px solid #ddd;
+.new-chat-btn,
+.about-btn {
+  padding: 10px;
   cursor: pointer;
+  font-weight: bold;
 }
 
-.side-menu ul li:hover {
+.new-chat-btn:hover,
+.about-btn:hover {
   background: #f2f2f2;
 }
-.side-menu ul li {
+
+.history-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.side-menu ul li button {
+.history-item:hover {
+  background: #f2f2f2;
+}
+
+.history-title {
+  font-size: 14px;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-item button {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
 }
