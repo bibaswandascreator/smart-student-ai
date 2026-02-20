@@ -6,7 +6,27 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
 </head>
-<body>
+<body> 
+<!-- Hamburger Button -->
+<div class="menu-btn" onclick="toggleMenu()">
+  ☰
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- Side Menu -->
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">
+    SMART STUDENT AI <br> BY BIBOS CREATION
+  </div>
+
+  <ul>
+    <li onclick="newChat()">New Chat</li>
+    <li onclick="showHistory()">History</li>
+    <li onclick="aboutUs()">About Us</li>
+  </ul>
+</div>
 
   <header>
     Smart Student Maths AI
