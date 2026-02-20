@@ -1,19 +1,20 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
-/* Hamburger button */
+/* Hamburger Button */
 .menu-btn {
   position: fixed;
   top: 15px;
   left: 15px;
   font-size: 26px;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 2000;
 }
 
-/* Overlay background */
+/* Overlay Background */
 .overlay {
   position: fixed;
   top: 0;
@@ -22,57 +23,57 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
   display: none;
-  z-index: 999;
+  z-index: 1500;
 }
 
-/* Side menu */
+/* Side Menu */
 .side-menu {
   position: fixed;
   top: 0;
   left: -50%;
   width: 50%;
   height: 100%;
-  background: #ffffff;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-  transition: 0.3s;
-  z-index: 1000;
+  background: white;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+  transition: left 0.3s ease;
+  z-index: 2001;
   padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Menu header */
-.menu-header {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 30px;
-  background: linear-gradient(45deg, blue, purple, red);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Menu items */
-.side-menu ul {
-  list-style: none;
-  padding: 0;
-}
-
-.side-menu ul li {
-  padding: 15px;
-  font-size: 16px;
-  cursor: pointer;
-  border-bottom: 1px solid #ddd;
-  transition: 0.2s;
-}
-
-.side-menu ul li:hover {
-  background: #f2f2f2;
-}
-
-/* Active state */
+/* When Active */
 .side-menu.active {
   left: 0;
 }
 
 .overlay.active {
   display: block;
+}
+
+/* Header Text */
+.menu-header {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  background: linear-gradient(45deg, red, blue, purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Menu List */
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu ul li {
+  padding: 15px 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.side-menu ul li:hover {
+  background: #f2f2f2;
 }
