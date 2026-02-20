@@ -126,7 +126,7 @@ function showHistory() {
       <div class="about-btn" onclick="window.open('https://bibaswandas11.github.io/Bibos-creation', '_blank')">
         About Us
       </div>
-      ${list} <!-- History now below About Us -->
+      <div class="history-list">${list}</div>
     </div>
   `;
 }
