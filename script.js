@@ -1,7 +1,7 @@
 let chats = [];
 let currentChatId = null;
 
-// ================= LOAD =================
+// ================= LOAD ON START =================
 window.onload = function () {
   const saved = localStorage.getItem("allChats");
 
@@ -123,19 +123,21 @@ function showHistory() {
     </div>
     <div class="history-container">
       <div class="new-chat-btn" onclick="newChat()">+ New Chat</div>
-      ${list}
-      <div class="about-btn" onclick="aboutUs()">About Us</div>
+      <div class="about-btn" onclick="window.open('https://bibaswandas11.github.io/Bibos-creation', '_blank')">
+        About Us
+      </div>
+      ${list} <!-- History now below About Us -->
     </div>
   `;
 }
 
-// ================= SELECT =================
+// ================= SELECT CHAT =================
 function selectChat(id) {
   loadChatById(id);
   closeMenu();
 }
 
-// ================= RENAME =================
+// ================= RENAME CHAT =================
 function renameChat(id) {
   const chat = chats.find(c => c.id === id);
   if (!chat) return;
@@ -146,10 +148,4 @@ function renameChat(id) {
     saveAllChats();
     showHistory();
   }
-}
-
-// ================= ABOUT =================
-function aboutUs() {
-  alert("SMART STUDENT AI\nCreated by BIBOS CREATION 🚀");
-  closeMenu();
 }
