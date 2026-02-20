@@ -123,12 +123,16 @@ function showHistory() {
     </div>
     <div class="history-container">
       <div class="new-chat-btn" onclick="newChat()">+ New Chat</div>
-      <div class="about-btn" onclick="window.open('https://bibaswandas11.github.io/Bibos-creation', '_blank')">
-        About Us
-      </div>
+      <div id="about-btn" class="about-btn">About Us</div>
       <div class="history-list">${list}</div>
     </div>
   `;
+
+  // Attach About Us click handler reliably
+  document.getElementById("about-btn").onclick = function() {
+    window.open('https://bibaswandas11.github.io/Bibos-creation', '_blank');
+    closeMenu();
+  };
 }
 
 // ================= SELECT CHAT =================
