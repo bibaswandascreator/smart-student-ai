@@ -106,33 +106,56 @@ function loadChatById(id) {
 
 // ================= HISTORY =================
 function showHistory() {
-  let list = "";
+  const sideMenu = document.getElementById("sideMenu");
 
-  chats.forEach(chat => {
-    list += `
-      <div class="history-item" onclick="selectChat('${chat.id}')">
-        <div class="history-title">${chat.name}</div>
-        <button onclick="event.stopPropagation(); renameChat('${chat.id}')">✏</button>
-      </div>
-    `;
-  });
-
-  document.getElementById("sideMenu").innerHTML = `
+  sideMenu.innerHTML = `
     <div class="menu-header">
       SMART STUDENT AI <br> BY BIBOS CREATION
     </div>
     <div class="history-container">
-      <div class="new-chat-btn" onclick="newChat()">+ New Chat</div>
-      <div id="about-btn" class="about-btn">About Us</div>
-      <div class="history-list">${list}</div>
+      <div class="new-chat-btn" id="new-chat-btn">+ New Chat</div>
+      <div class="about-btn" id="about-btn">About Us</div>
+      <div class="history-list" id="history-list"></div>
     </div>
   `;
 
-  // Attach About Us click handler reliably
+  // Always attach About Us handler
   document.getElementById("about-btn").onclick = function() {
     window.open('https://bibaswandas11.github.io/Bibos-creation', '_blank');
     closeMenu();
   };
+
+  document.getElementById("new-chat-btn").onclick = function() {
+    newChat();
+    showHistory(); // refresh list
+  };
+
+  const historyList = document.getElementById("history-list");
+  historyList.innerHTML = "";
+
+  chats.forEach(chat => {
+    const item = document.createElement("div");
+    item.className = "history-item";
+
+    const title = document.createElement("div");
+    title.className = "history-title";
+    title.textContent = chat.name;
+    item.appendChild(title);
+
+    const renameBtn = document.createElement("button");
+    renameBtn.textContent = "✏";
+    renameBtn.onclick = function(e) {
+      e.stopPropagation();
+      renameChat(chat.id);
+    };
+    item.appendChild(renameBtn);
+
+    item.onclick = function() {
+      selectChat(chat.id);
+    };
+
+    historyList.appendChild(item);
+  });
 }
 
 // ================= SELECT CHAT =================
@@ -150,6 +173,6 @@ function renameChat(id) {
   if (newName && newName.trim() !== "") {
     chat.name = newName.trim();
     saveAllChats();
-    showHistory();
+    showHistory(); // refresh list
   }
 }
